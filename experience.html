@@ -341,75 +341,14 @@
             <h1 class="section-title">Work Experience</h1>
             
             <div class="timeline">
-                <!-- Experience 1 -->
                 <div class="timeline-item">
                     <div class="timeline-icon">
                         <i class="fas fa-briefcase"></i>
                     </div>
                     <div class="timeline-content">
-                        <h3 class="job-title">Senior Software Engineer</h3>
-                        <p class="company-name">Company Name</p>
-                        <p class="job-period">Jan 2023 - Present</p>
-                        <ul class="job-description">
-                            <li>Led development of key features resulting in 40% performance improvement</li>
-                            <li>Mentored junior developers and conducted code reviews</li>
-                            <li>Implemented CI/CD pipelines reducing deployment time by 60%</li>
-                            <li>Collaborated with cross-functional teams on product roadmap</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Experience 2 -->
-                <div class="timeline-item">
-                    <div class="timeline-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h3 class="job-title">Full Stack Developer</h3>
-                        <p class="company-name">Another Company</p>
-                        <p class="job-period">Jun 2021 - Dec 2022</p>
-                        <ul class="job-description">
-                            <li>Built and maintained scalable web applications using React and Node.js</li>
-                            <li>Designed and implemented RESTful APIs serving 100k+ requests daily</li>
-                            <li>Optimized database queries improving response times by 50%</li>
-                            <li>Participated in agile development processes and sprint planning</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Experience 3 -->
-                <div class="timeline-item">
-                    <div class="timeline-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h3 class="job-title">Junior Developer</h3>
-                        <p class="company-name">Startup Inc.</p>
-                        <p class="job-period">Jan 2020 - May 2021</p>
-                        <ul class="job-description">
-                            <li>Developed responsive web interfaces using modern frameworks</li>
-                            <li>Fixed bugs and improved application performance</li>
-                            <li>Collaborated with designers to implement UI/UX improvements</li>
-                            <li>Participated in daily standups and code review sessions</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Experience 4 -->
-                <div class="timeline-item">
-                    <div class="timeline-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h3 class="job-title">Software Development Intern</h3>
-                        <p class="company-name">Tech Corporation</p>
-                        <p class="job-period">Jun 2019 - Dec 2019</p>
-                        <ul class="job-description">
-                            <li>Assisted in development of internal tools and utilities</li>
-                            <li>Learned best practices in software development and testing</li>
-                            <li>Contributed to documentation and technical specifications</li>
-                            <li>Gained hands-on experience with version control and collaboration tools</li>
-                        </ul>
+                        <h3 class="job-title">Embedded Software Developer</h3>
+                        <p class="company-name">Honeywell Technologies, Hyderabad</p>
+                        <p class="job-period">Nov 4, 2024 - Present · <span id="experience-duration">Calculating duration…</span></p>
                     </div>
                 </div>
             </div>
@@ -417,6 +356,29 @@
     </div>
 
     <script>
+        const experienceStart = new Date(2024, 10, 4);
+        const today = new Date();
+        let totalMonths = (today.getFullYear() - experienceStart.getFullYear()) * 12
+            + today.getMonth() - experienceStart.getMonth();
+
+        if (today.getDate() < experienceStart.getDate()) {
+            totalMonths--;
+        }
+
+        const years = Math.floor(totalMonths / 12);
+        const months = totalMonths % 12;
+        const durationParts = [];
+
+        if (years > 0) {
+            durationParts.push(`${years} ${years === 1 ? 'year' : 'years'}`);
+        }
+        if (months > 0) {
+            durationParts.push(`${months} ${months === 1 ? 'month' : 'months'}`);
+        }
+
+        document.getElementById('experience-duration').textContent =
+            durationParts.join(', ') || 'Less than a month';
+
         // Custom Cursor
         const cursor = document.querySelector('.custom-cursor');
         document.addEventListener('mousemove', (e) => {

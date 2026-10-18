@@ -145,49 +145,78 @@
         }
 
         .projects-grid {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            position: relative;
             opacity: 0;
             animation: fadeInUp 1s ease 0.2s forwards;
         }
 
-        .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+        .projects-grid::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .project-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-10px);
-            border-color: rgba(255, 255, 255, 0.2);
+        .project-card {
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .project-card:nth-child(odd) .project-content {
+            margin-right: calc(50% + 3rem);
+            text-align: right;
+        }
+
+        .project-card:nth-child(even) .project-content {
+            margin-left: calc(50% + 3rem);
         }
 
         .project-image {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            color: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            z-index: 1;
+            font-size: 1.5rem;
         }
 
         .project-content {
+            display: block;
             padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .project-content:hover,
+        .project-content:focus-visible {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            outline: none;
         }
 
         .project-title {
             font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             letter-spacing: -0.02em;
         }
 
@@ -203,7 +232,10 @@
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 1.5rem;
+        }
+
+        .project-card:nth-child(odd) .project-tags {
+            justify-content: flex-end;
         }
 
         .tag {
@@ -214,25 +246,6 @@
             font-weight: 500;
         }
 
-        .project-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .project-link {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .project-link:hover {
-            color: #ffffff;
-        }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -241,12 +254,6 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .projects-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
         }
 
@@ -267,16 +274,30 @@
                 font-size: clamp(2rem, 8vw, 3rem);
             }
 
-            .projects-grid {
-                grid-template-columns: 1fr;
+            .projects-grid::before {
+                left: 30px;
             }
 
             .project-image {
-                height: 200px;
+                left: 30px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .project-card:nth-child(odd) .project-content,
+            .project-card:nth-child(even) .project-content {
+                margin-left: 80px;
+                margin-right: 0;
+                text-align: left;
             }
 
             .project-content {
                 padding: 1.5rem;
+            }
+
+            .project-card:nth-child(odd) .project-tags {
+                justify-content: flex-start;
             }
 
             .project-title {
@@ -311,160 +332,74 @@
             <h1 class="section-title">Featured Projects</h1>
             
             <div class="projects-grid">
-                <!-- Project 1 -->
                 <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-project-diagram"></i>
+                    <div class="project-image" aria-hidden="true">
+                        <i class="fas fa-clock"></i>
                     </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Project Name 1</h3>
+                    <a class="project-content" href="https://github.com/GtSaurabh/7_segment_clock" target="_blank" rel="noopener noreferrer" aria-label="Open ESP32 3D-Printed Seven-Segment Clock repository on GitHub">
+                        <h3 class="project-title">ESP32 3D-Printed Seven-Segment Clock</h3>
                         <p class="project-description">
-                            A brief description of your project. What problem does it solve? What technologies did you use?
+                            A Wi-Fi-connected digital clock built with an ESP32, 3D-printed seven-segment displays, and WS2812B RGB LEDs.
                         </p>
                         <div class="project-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">Node.js</span>
-                            <span class="tag">MongoDB</span>
+                            <span class="tag">ESP32</span>
+                            <span class="tag">C++</span>
+                            <span class="tag">WS2812B</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
+                    </a>
                 </div>
 
-                <!-- Project 2 -->
                 <div class="project-card">
-                    <div class="project-image">
+                    <div class="project-image" aria-hidden="true">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <a class="project-content" href="https://github.com/GtSaurabh/Esp32_RGB_Controller" target="_blank" rel="noopener noreferrer" aria-label="Open ESP32 Music-Reactive RGB Controller repository on GitHub">
+                        <h3 class="project-title">ESP32 Music-Reactive RGB Controller</h3>
+                        <p class="project-description">
+                            An ESP32-based RGB lighting controller that reacts to music, using Bluetooth audio and FFT-based beat detection to drive LED effects.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">ESP32</span>
+                            <span class="tag">C++</span>
+                            <span class="tag">FastLED</span>
+                            <span class="tag">FFT</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image" aria-hidden="true">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <a class="project-content" href="https://github.com/GtSaurabh/Sensor-Network-using-CAN-and-IOT" target="_blank" rel="noopener noreferrer" aria-label="Open CAN-Based Sensor Network with IoT repository on GitHub">
+                        <h3 class="project-title">CAN-Based Sensor Network with IoT</h3>
+                        <p class="project-description">
+                            An embedded sensor network connecting STM32 and ESP32 devices over CAN, with an ESP32-to-cloud component for IoT connectivity.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">STM32</span>
+                            <span class="tag">ESP32</span>
+                            <span class="tag">CAN</span>
+                            <span class="tag">IoT</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image" aria-hidden="true">
                         <i class="fas fa-laptop-code"></i>
                     </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Project Name 2</h3>
+                    <a class="project-content" href="https://github.com/GtSaurabh/Portfolio-Website" target="_blank" rel="noopener noreferrer" aria-label="Open Portfolio Website repository on GitHub">
+                        <h3 class="project-title">Portfolio Website</h3>
                         <p class="project-description">
-                            A brief description of your project. What problem does it solve? What technologies did you use?
+                            A responsive multi-page portfolio built with HTML, CSS, and JavaScript, featuring an animated landing page and sections for projects, skills, experience, and contact.
                         </p>
                         <div class="project-tags">
-                            <span class="tag">Vue.js</span>
-                            <span class="tag">Firebase</span>
-                            <span class="tag">Tailwind</span>
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Project Name 3</h3>
-                        <p class="project-description">
-                            A brief description of your project. What problem does it solve? What technologies did you use?
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">React Native</span>
-                            <span class="tag">Express</span>
-                            <span class="tag">PostgreSQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Project Name 4</h3>
-                        <p class="project-description">
-                            A brief description of your project. What problem does it solve? What technologies did you use?
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Next.js</span>
-                            <span class="tag">TypeScript</span>
-                            <span class="tag">Prisma</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 5 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Project Name 5</h3>
-                        <p class="project-description">
-                            A brief description of your project. What problem does it solve? What technologies did you use?
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Python</span>
-                            <span class="tag">Flask</span>
-                            <span class="tag">MySQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 6 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Project Name 6</h3>
-                        <p class="project-description">
-                            A brief description of your project. What problem does it solve? What technologies did you use?
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">TensorFlow</span>
-                            <span class="tag">Python</span>
-                            <span class="tag">Docker</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>

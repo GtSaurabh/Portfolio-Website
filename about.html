@@ -156,34 +156,13 @@
         }
 
         .about-image {
+            display: block;
             width: 100%;
             aspect-ratio: 1;
-            background: linear-gradient(135deg, rgba(0, 100, 200, 0.2), rgba(0, 200, 100, 0.2)),
-                        url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iY2lyY3VpdCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiPjxwYXRoIGQ9Ik0gMCw1MCBMIDUwLDUwIEwgNTAsMCIgc3Ryb2tlPSJyZ2JhKDAsMjAwLDEwMCwwLjMpIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1IiBmaWxsPSJyZ2JhKDAsMjAwLDEwMCwwLjUpIi8+PHBhdGggZD0iTSA1MCw1MCBMIDEwMCw1MCIgc3Ryb2tlPSJyZ2JhKDAsMjAwLDEwMCwwLjMpIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiBmaWxsPSJ1cmwoI2NpcmN1aXQpIi8+PC9zdmc+');
-            background-size: cover;
-            background-position: center;
+            object-fit: cover;
+            object-position: center 35%;
             border-radius: 20px;
-            backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 200, 100, 0.3);
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .about-image::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
-        }
-
-        .about-image::after {
-            content: '🔧';
-            font-size: 5rem;
-            z-index: 1;
-            opacity: 0.7;
         }
 
         .about-text h3 {
@@ -316,25 +295,19 @@
             <h1 class="section-title">About Me</h1>
             
             <div class="about-content">
-                <div class="about-image"></div>
+                <img class="about-image" src="assets/profile.jpg" alt="Saurabh Chikhlonde">
                 
                 <div class="about-text">
                     <h3>Hello! I'm an Embedded Systems Engineer</h3>
                     <p>
-                        I'm a dedicated embedded systems engineer with a strong focus on hardware-software integration 
-                        and low-level programming. I specialize in designing efficient, reliable embedded solutions 
-                        that bridge the gap between hardware and software, bringing technical concepts to life.
+                        I'm an Embedded Software Developer at Honeywell Technologies in Hyderabad, focused on
+                        hardware-software integration and low-level programming. I enjoy building reliable embedded
+                        solutions that connect software with the physical world.
                     </p>
                     <p>
-                        What sets me apart is my attention to detail and commitment to building world-class, 
-                        professional solutions. I believe in clean design, robust architectures, and creating 
-                        systems that not only work flawlessly but also maintain high standards of code quality 
-                        and engineering excellence.
-                    </p>
-                    <p>
-                        I'm passionate about continuous learning and staying current with the latest technologies 
-                        in embedded systems, IoT, and real-time operating systems. Every project is an opportunity 
-                        to push boundaries and deliver exceptional results.
+                        Outside of work, I enjoy hands-on projects involving drones and RC planes, as well as
+                        3D printing. These interests let me explore the intersection of embedded systems,
+                        electronics, mechanics, and making things work in the real world.
                     </p>
                     
                     <div class="stats-grid">
@@ -343,8 +316,8 @@
                             <div class="stat-label">Projects Completed</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">1+</div>
-                            <div class="stat-label">Year Experience</div>
+                            <div class="stat-number" id="honeywell-tenure">Calculating…</div>
+                            <div class="stat-label">Experience at Honeywell Technologies</div>
                         </div>
                     </div>
                 </div>
@@ -353,6 +326,29 @@
     </div>
 
     <script>
+        const startDate = new Date(2024, 10, 4);
+        const currentDate = new Date();
+        let totalMonths = (currentDate.getFullYear() - startDate.getFullYear()) * 12
+            + currentDate.getMonth() - startDate.getMonth();
+
+        if (currentDate.getDate() < startDate.getDate()) {
+            totalMonths--;
+        }
+
+        const years = Math.floor(totalMonths / 12);
+        const months = totalMonths % 12;
+        const tenure = [];
+
+        if (years > 0) {
+            tenure.push(`${years}y`);
+        }
+        if (months > 0) {
+            tenure.push(`${months}m`);
+        }
+
+        document.getElementById('honeywell-tenure').textContent =
+            tenure.join(' ') || 'Less than 1m';
+
         // Custom Cursor
         const cursor = document.querySelector('.custom-cursor');
         document.addEventListener('mousemove', (e) => {
